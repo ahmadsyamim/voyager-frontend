@@ -80,7 +80,9 @@ class VoyagerFrontendServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(base_path('/routes/web.php'));
 
         // Then add our Pages and Posts Routes
-        $this->loadRoutesFrom(self::PACKAGE_DIR . 'routes/web.php');
+        if (config('voyager.frontend_routes')) {
+            $this->loadRoutesFrom(self::PACKAGE_DIR . 'routes/web.php');
+        }
     }
 
     /**
