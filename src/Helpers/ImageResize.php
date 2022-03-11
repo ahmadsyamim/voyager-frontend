@@ -25,7 +25,7 @@ function imageUrl($imagePath = '', $width = null, $height = null, $config = arra
     if (null === $cachedUrl || !Storage::exists($diskPath)) {
 
         // Don't continue when original file doesn't exist
-        if (!($storage->exists($imagePath))) {
+        if (!$imagePath || !($storage->exists($imagePath))) {
             return null;
         }
 
