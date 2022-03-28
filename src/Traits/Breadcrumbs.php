@@ -90,7 +90,7 @@ trait Breadcrumbs
         $menuItems = [];
 
         $storedMenuItems = Cache::remember('', 10, function () {
-            return MenuItem::all();
+            return \Schema::hasTable('menu_items') ? MenuItem::all() : Collect();
         });
 
         foreach ($storedMenuItems as $menuItem) {
