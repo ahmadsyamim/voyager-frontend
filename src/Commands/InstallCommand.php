@@ -3,14 +3,14 @@
 namespace Pvtl\VoyagerFrontend\Commands;
 
 use Pvtl\VoyagerFrontend\Providers\VoyagerFrontendServiceProvider;
-use TCG\Voyager\Traits\Seedable;
+//use TCG\Voyager\Traits\Seedable;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 class InstallCommand extends Command
 {
-    use Seedable;
+    //use Seedable;
 
     protected $seedersPath = __DIR__ . '/../../database/seeds/';
 
