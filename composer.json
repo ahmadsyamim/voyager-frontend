@@ -16,6 +16,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "ahmadsyamim/voyager-pages": "^0.2.13",
         "spatie/laravel-sitemap": "^6.1",
         "teamtnt/laravel-scout-tntsearch-driver": "^11.0"
     },
