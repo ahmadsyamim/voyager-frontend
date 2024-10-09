@@ -3,14 +3,14 @@
 namespace Pvtl\VoyagerFrontend\Commands;
 
 use Pvtl\VoyagerFrontend\Providers\VoyagerFrontendServiceProvider;
-//use TCG\Voyager\Traits\Seedable;
+use TCG\Voyager\Traits\Seedable;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 class InstallCommand extends Command
 {
-    //use Seedable;
+    use Seedable;
 
     protected $seedersPath = __DIR__ . '/../../database/seeds/';
 
@@ -66,8 +66,11 @@ class InstallCommand extends Command
         $this->info('Remove default web route');
         $routes_contents = (new Filesystem)->get(base_path('routes/web.php'));
         if (false !== strpos($routes_contents, "return view('welcome')")) {
-            $routes_contents = str_replace("\n\nRoute::get('/', function () {\n    return view('welcome');\n});", '',
-                $routes_contents);
+            $routes_contents = str_replace(
+                "\n\nRoute::get('/', function () {\n    return view('welcome');\n});",
+                '',
+                $routes_contents
+            );
             (new Filesystem)->put(base_path('routes/web.php'), $routes_contents);
         }
 
@@ -75,12 +78,14 @@ class InstallCommand extends Command
         // Use our files
         $this->info('Copying authentication views to main project');
         (new Filesystem)->copyDirectory(
-            __DIR__ . '/../../stubs/views', resource_path('views')
+            __DIR__ . '/../../stubs/views',
+            resource_path('views')
         );
 
         $this->info('Copying our webpack.mix.js to the project root');
         (new Filesystem)->copy(
-            __DIR__ . '/../../webpack.mix.js', resource_path('../webpack.mix.js')
+            __DIR__ . '/../../webpack.mix.js',
+            resource_path('../webpack.mix.js')
         );
 
         $this->info('Publishing the Voyager assets, database, and config files');
@@ -89,7 +94,14 @@ class InstallCommand extends Command
         $this->info('Updating Root package.json to include dependencies');
 
         $process = new Process([
-            'npm', 'install', 'jquery', 'what-input', 'foundation-sites', 'scrollreveal', 'motion-ui', '--save-dev'
+            'npm',
+            'install',
+            'jquery',
+            'what-input',
+            'foundation-sites',
+            'scrollreveal',
+            'motion-ui',
+            '--save-dev'
         ]);
         $process->setTimeout(null); // Setting timeout to null to prevent installation from stopping at a certain point in time
         $process->setWorkingDirectory(base_path())->mustRun();
